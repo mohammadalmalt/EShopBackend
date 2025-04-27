@@ -87,4 +87,24 @@ public class CreateProductSteps {
         Assertions.assertEquals(999.99, createdProduct.getPrice());
         Assertions.assertEquals(10, createdProduct.getStockQuantity());
     }
+
+    @When("I attempt to create a product with name {string}, description {string}, price {double}, and stock {int} without authentication")
+    public void i_attempt_to_create_product_without_auth(String name, String description, double price, int stock) {
+        ProductDTO productDTO = new ProductDTO();
+        productDTO.setName(name);
+        productDTO.setDescription(description);
+        productDTO.setPrice(price);
+        productDTO.setStockQuantity(stock);
+
+        response = RestAssured.given()
+                .contentType(ContentType.JSON)
+                .body(productDTO)
+                .when()
+                .post("http://localhost:" + port + "/api/products");
+    }
+
+    @Then("the request should be denied with status {int}")
+    public void the_request_should_be_denied_with_status(int statusCode) {
+        response.then().statusCode(statusCode);
+    }
 }

@@ -1,13 +1,14 @@
 package com.berativ.eshopbackend.controller;
 
-
 import com.berativ.eshopbackend.dto.AuthRequest;
 import com.berativ.eshopbackend.dto.AuthResponse;
 import com.berativ.eshopbackend.dto.UserDTO;
 import com.berativ.eshopbackend.service.AuthService;
-import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/api/auth")
@@ -20,12 +21,12 @@ public class AuthController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<UserDTO> register(@Valid @RequestBody UserDTO userDTO) {
+    public ResponseEntity<UserDTO> register(@RequestBody UserDTO userDTO) {
         return ResponseEntity.ok(authService.register(userDTO));
     }
 
     @PostMapping("/login")
-    public ResponseEntity<AuthResponse> login(@Valid @RequestBody AuthRequest authRequest) {
+    public ResponseEntity<AuthResponse> login(@RequestBody AuthRequest authRequest) {
         return ResponseEntity.ok(authService.login(authRequest));
     }
 }
