@@ -1,3 +1,4 @@
+Feature: Full Order Cycle
 Scenario: User registers, admin adds a product, and user orders the product
 Given a user registers with username "customer", password "password", email "customer@example.com", and role "CUSTOMER"
 And an admin is logged in with username "admin" and password "adminpassword"

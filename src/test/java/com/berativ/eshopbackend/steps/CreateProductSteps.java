@@ -29,22 +29,19 @@ public class CreateProductSteps {
 
     @Given("I am logged in as an admin")
     public void i_am_logged_in_as_an_admin() {
-        // Register an admin user (if not already registered)
         UserDTO userDTO = new UserDTO();
         userDTO.setUsername("admin");
         userDTO.setPassword("adminpassword");
         userDTO.setEmail("admin@example.com");
-        userDTO.setRole(User.Role.ADMIN);
+        userDTO.setRole(com.berativ.eshopbackend.model.User.Role.ADMIN);
 
+        // Attempt registration, ignore 409 Conflict
         RestAssured.given()
                 .contentType(ContentType.JSON)
                 .body(userDTO)
                 .when()
-                .post("http://localhost:" + port + "/api/auth/register")
-                .then()
-                .statusCode(200); // Ignore errors for existing user
+                .post("http://localhost:" + port + "/api/auth/register");
 
-        // Login to get JWT token
         Response loginResponse = RestAssured.given()
                 .contentType(ContentType.JSON)
                 .body(new AuthRequest("admin", "adminpassword"))
