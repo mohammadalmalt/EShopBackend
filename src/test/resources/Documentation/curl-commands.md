@@ -1,0 +1,6 @@
+# Helpful CURL commands
+
+## create an admin user
+```bash
+   curl -X POST http://localhost:8080/api/auth/register -H "Content-Type: application/json" -d "{\"username\":\"admin\",\"password\":\"adminpassword\",\"email\":\"admin@example.com\",\"role\":\"ADMIN\"}"
+   ```
